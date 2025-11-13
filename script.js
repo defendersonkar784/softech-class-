@@ -1,4 +1,4 @@
-// Mobile nav toggle
+
 const navToggle = document.getElementById('navToggle');
 const mainNav = document.getElementById('mainNav');
 
@@ -18,10 +18,10 @@ navToggle.addEventListener('click', () => {
   }
 });
 
-// Footer year
+
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Simple contact form handling (demo)
+
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
   const name = document.getElementById('name').value.trim();
@@ -34,13 +34,12 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
     return;
   }
 
-  // Demo action: show message. Replace with actual API call later.
   alert('धन्यवाद ' + name + '! आपकी जानकारी मिल गयी है. हम जल्द ही संपर्क करेंगे।');
 
   this.reset();
 });
 
-// Reviews simple autoplay slider
+
 const reviews = document.querySelectorAll('.reviews-slider .review');
 let rIndex = 0;
 function showReview(i){
@@ -55,3 +54,4 @@ if (reviews.length){
     showReview(rIndex);
   }, 4000);
 }
+
