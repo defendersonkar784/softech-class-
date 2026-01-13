@@ -1,57 +1,55 @@
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+const cakeBtn = document.getElementById("cakeBtn");
 
-const navToggle = document.getElementById('navToggle');
-const mainNav = document.getElementById('mainNav');
+let confettiInterval;
 
-navToggle.addEventListener('click', () => {
-  if (mainNav.style.display === 'flex') {
-    mainNav.style.display = 'none';
-  } else {
-    mainNav.style.display = 'flex';
-    mainNav.style.flexDirection = 'column';
-    mainNav.style.position = 'absolute';
-    mainNav.style.right = '20px';
-    mainNav.style.top = '64px';
-    mainNav.style.background = 'white';
-    mainNav.style.padding = '12px';
-    mainNav.style.borderRadius = '8px';
-    mainNav.style.boxShadow = '0 10px 30px rgba(11,18,32,0.08)';
+btn.onclick = toggleMusic;
+cakeBtn.onclick = cutCake;
+
+function toggleMusic(){
+  if(music.paused){
+    music.play();
+    btn.innerText="⏸ Pause Music";
+    startConfetti();
+  }else{
+    music.pause();
+    btn.innerText="🎶 Play Music";
+    stopConfetti();
   }
-});
-
-
-document.getElementById('year').textContent = new Date().getFullYear();
-
-
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = document.getElementById('name').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const msg = document.getElementById('message').value.trim();
-
-  if (!name || !phone || !email || !msg) {
-    alert('कृपया सभी फ़ील्ड भरें।');
-    return;
-  }
-
-  alert('धन्यवाद ' + name + '! आपकी जानकारी मिल गयी है. हम जल्द ही संपर्क करेंगे।');
-
-  this.reset();
-});
-
-
-const reviews = document.querySelectorAll('.reviews-slider .review');
-let rIndex = 0;
-function showReview(i){
-  reviews.forEach((r, idx) => {
-    r.style.display = idx === i ? 'block' : 'none';
-  });
-}
-if (reviews.length){
-  showReview(rIndex);
-  setInterval(() => {
-    rIndex = (rIndex + 1) % reviews.length;
-    showReview(rIndex);
-  }, 4000);
 }
 
+function startConfetti(){
+  confettiInterval=setInterval(()=>{
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration=(Math.random()*3+2)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  },200);
+}
+
+function stopConfetti(){
+  clearInterval(confettiInterval);
+}
+
+// Countdown
+const birthday = new Date("January 14, 2026 00:00:00").getTime();
+setInterval(()=>{
+  const d=birthday-new Date().getTime();
+  if(d>0){
+    days.innerText=Math.floor(d/86400000);
+    hours.innerText=Math.floor(d%86400000/3600000);
+    minutes.innerText=Math.floor(d%3600000/60000);
+    seconds.innerText=Math.floor(d%60000/1000);
+  }
+},1000);
+
+function cutCake(){
+  document.querySelector(".top").style.transform="translateX(-25px) rotate(-8deg)";
+  document.querySelector(".middle").style.transform="translateX(25px) rotate(8deg)";
+  document.getElementById("cakeMsg").innerText="🎉 Happy Birthday Muskan 🎉";
+  startConfetti();
+}
